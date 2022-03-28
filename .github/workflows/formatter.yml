@@ -82,5 +82,5 @@ jobs:
         shell: bash
         run: |
           cd build2/solve_application
-          ./solve
+          ./solve 1 2 1
         
