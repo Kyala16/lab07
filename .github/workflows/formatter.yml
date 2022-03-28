@@ -81,6 +81,6 @@ jobs:
       - name: writer
         shell: bash
         run: |
-          cd build2/solve_application
+          cd build2/solver_application
           ./solve 1 2 1
         
