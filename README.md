@@ -2,6 +2,8 @@
 
 **Задание написано в formatter.yml**
 
+![Jokes Card](https://readme-jokes.vercel.app/api)
+
 Status of Last Build:<br>
 <img src="https://github.com/Kyala16/lab04/workflows/Formatter/badge.svg?branch=main"><br>
 
