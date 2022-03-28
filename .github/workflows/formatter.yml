@@ -43,3 +43,21 @@ jobs:
           mkdir build && cd build
           cmake ..
           cmake --build .
+  
+  Hello-world:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build Hello_world
+        shell: bash
+        run: |
+          mkdir build1 && cd build1
+          cmake ..
+          cmake --build .
+  
+      - name: writer
+        shell: bash
+        run: ls -la
+        
