@@ -26,7 +26,7 @@ jobs:
           cd formatter_lib
           mkdir build && cd build
           cmake ..
-          cmake -build .
+          cmake --build .
           
       - name: Build formatter_ex_lib
         shell: bash
@@ -34,7 +34,7 @@ jobs:
           cd formatter_ex_lib
           mkdir build && cd build
           cmake ..
-          cmake -build .
+          cmake --build .
 
       - name: Build solver_lib
         shell: bash
@@ -42,4 +42,4 @@ jobs:
           cd solver_lib
           mkdir build && cd build
           cmake ..
-          cmake -build .
+          cmake --build .
