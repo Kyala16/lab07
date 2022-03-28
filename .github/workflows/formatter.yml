@@ -23,20 +23,23 @@ jobs:
       - name: Build formatter_lib
         shell: bash
         run: |
-          cd formatter_lib/build
+          cd formatter_lib
+          mkdir build && cd build
           cmake ..
           cmake -build .
           
       - name: Build formatter_ex_lib
         shell: bash
         run: |
-          cd formatter_ex_lib/build
+          cd formatter_ex_lib
+          mkdir build && cd build
           cmake ..
           cmake -build .
 
       - name: Build solver_lib
         shell: bash
         run: |
-          cd solver_lib/build
+          cd solver_lib
+          mkdir build && cd build
           cmake ..
           cmake -build .
