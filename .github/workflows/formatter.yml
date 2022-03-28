@@ -13,23 +13,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  Build-library:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build library
+      - name: Build formatter_lib
         shell: bash
         run: |
-          cd formatter_lib
-          ls
-        
-      - name: What you contain?
-        run: ls -la
-
-      - name: Run a multi-line script
+          cd formatter_lib/build
+          cmake ..
+          cmake -build .
+          
+      - name: Build formatter_ex_lib
+        shell: bash
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          cd formatter_ex_lib/build
+          cmake ..
+          cmake -build .
+
+      - name: Build solver_lib
+        shell: bash
+        run: |
+          cd solver_lib/build
+          cmake ..
+          cmake -build .
