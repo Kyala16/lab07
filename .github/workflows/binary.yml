@@ -1,0 +1,179 @@
+#-------------------------------------
+#  Lab07 - Work this GitHub Actions
+#  @Kyala16
+#-------------------------------------
+
+name: Bin
+
+on:
+  push:
+    branches: 
+    - main
+
+  workflow_dispatch:
+
+jobs:
+  Binary_DEB:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: prepare environment
+        run: sudo apt install git
+      
+      - name: Build DEB
+        shell: bash
+        run: |
+          mkdir build && cd build
+          cmake -DGenerator=DEB ..
+          cmake --build .
+          cpack  
+          
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v2.0.0
+          release_name: Release v2.0.0
+          draft: false
+          prerelease: false
+          
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/hello-world_1.0.0_amd64.deb
+          asset_name: BinaryFiles.deb
+          asset_content_type: application/deb
+          
+  Binary_RPM:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: prepare environment
+        run: |
+          sudo apt install git
+          sudo apt-get install rpm
+      
+      - name: Build RPM
+        shell: bash
+        run: |
+          mkdir build && cd build
+          cmake -DGenerator=RPM ..
+          cmake --build .
+          cpack 
+          
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v2.1.0
+          release_name: Release v2.1.0
+          draft: false
+          prerelease: false
+          
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/Hello-world-1.0.0-Linux.rpm
+          asset_name: Solver.rpm
+          asset_content_type: application/rpm
+          
+          
+  Binary_MSI:
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: prepare environment
+        shell: bash
+        run: |
+          sudo apt install git
+      
+      - name: Build MSI
+        shell: bash
+        run: |
+          mkdir build && cd build
+          cmake -DGenerator=MSI ..
+          cmake --build .
+          cpack -C CPackConfig.cmake
+          
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v2.2.0
+          release_name: Release v2.2.0
+          draft: false
+          prerelease: false
+          
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/Hello-world-1.0.0-win64.msi
+          asset_name: Solver.msi
+          asset_content_type: application/msi
+          
+          
+  Binary_DMG:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: prepare environment
+        shell: bash
+        run: |
+          sudo apt install git
+      
+      - name: Build DMG
+        shell: bash
+        run: |
+          mkdir build && cd build
+          cmake -DGenerator=DMG ..
+          cmake --build .
+          cpack 
+          
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v2.3.0
+          release_name: Release v2.3.0
+          draft: false
+          prerelease: false
+          
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/Hello-world-1.0.0-Darwin.dmg
+          asset_name: Solver.dmg
+          asset_content_type: application/dmg        
+          
