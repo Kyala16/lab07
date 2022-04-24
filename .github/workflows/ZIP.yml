@@ -3,7 +3,7 @@
 #  @Kyala16
 #-------------------------------------
 
-name: Solver
+name: ZIP_ARC
 
 on:
   push:
@@ -81,9 +81,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build
-          asset_name: Solver
-          asset_content_type: application
+          asset_path: build/Hello-world-1.0.0-Linux.zip
+          asset_name: Solver.zip
+          asset_content_type: application/zip
           
       
   
