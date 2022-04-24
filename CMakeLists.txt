@@ -10,13 +10,4 @@ add_subdirectory(formatter_ex_lib)
 add_subdirectory(solver_lib)
 add_subdirectory(solver_application)
 
-add_executable(${PROJECT_NAME})
-
-target_sources(
-	${PROJECT_NAME}
-	PRIVATE
-	main.cpp
-)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE solver)
 
