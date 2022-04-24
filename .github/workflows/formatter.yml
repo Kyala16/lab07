@@ -60,16 +60,16 @@ jobs:
           mkdir build && cd build
           cmake -DGenerator=ZIP ..
           cmake --build .
-          cpack -G ZIP
-          cd ..
+          cpack -G ZIP   
+          
       - name: Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: v1.0.0
+          release_name: Release v1.0.0
           draft: false
           prerelease: false
           
