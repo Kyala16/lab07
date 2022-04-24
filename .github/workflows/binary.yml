@@ -48,7 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/hello-world_1.0.0_amd64.deb
+          asset_path: build/Hello-world-1.0.0-Linux.deb
           asset_name: BinaryFiles.deb
           asset_content_type: application/deb
           
@@ -100,11 +100,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: prepare environment
-        shell: bash
-        run: |
-          sudo apt install git
-      
       - name: Build MSI
         shell: bash
         run: |
@@ -141,11 +136,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      
-      - name: prepare environment
-        shell: bash
-        run: |
-          sudo apt install git
       
       - name: Build DMG
         shell: bash
