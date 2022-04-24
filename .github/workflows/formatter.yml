@@ -54,15 +54,14 @@ jobs:
       - name: prepare environment
         run: sudo apt install git
       
-      - name: Build ZIP
+      - name: Build Zip And Tar
         shell: bash
         run: |
           mkdir build && cd build
-          cmake -DGenerator=ZIP ..
+          cmake -DGenerator=ARC ..
           cmake --build .
           cpack -G ZIP  
-      - name: Chacker
-        run: ls
+          cpack -G TGZ
           
       - name: Release
         id: create_release
@@ -82,7 +81,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/Hello-world-1.0.0-Linux.zip
+          asset_path: |
+            build/Hello-world-1.0.0-Linux.zip
+            build/Hello-world-1.0.0-Linux.tar.gz
           asset_name: Solver.zip
           asset_content_type: application/zip
           
