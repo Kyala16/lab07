@@ -60,7 +60,9 @@ jobs:
           mkdir build && cd build
           cmake -DGenerator=ZIP ..
           cmake --build .
-          cpack -G ZIP   
+          cpack -G ZIP  
+      - name: Chacker
+        run: ls
           
       - name: Release
         id: create_release
