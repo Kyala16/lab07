@@ -14,4 +14,5 @@ set_target_properties(
 	CXX_STANDARD_REQUIRED ON
 )
 
-
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+include(CPackSourceConfig)
