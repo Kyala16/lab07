@@ -51,36 +51,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: prepare environment
+        run: sudo apt install git
+      
       - name: Build ZIP
         shell: bash
         run: |
-          mkdir build1 && cd build1
-          cmake ..
+          mkdir build && cd build
+          cmake -DGenerator=ZIP ..
           cmake --build .
+          cpack -G ZIP
+          cd ..
+          git tag v1.0.0
+          git push origin v1.0.0
   
-      - name: Build Tar.gz
-        shell: bash
-        run: |
-          cd build1/hello_world_application
-          ./hello_world
-
-  Build-solver:
-    runs-on: ubuntu-latest
-    needs: [ Build-library ]
-    
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Build solver_application
-        shell: bash
-        run: |
-          mkdir build2 && cd build2
-          cmake ..
-          cmake --build .
-          
-      - name: writer
-        shell: bash
-        run: |
-          cd build2/solver_application
-          ./solve 1 2 1
         
